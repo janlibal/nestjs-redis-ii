@@ -1,0 +1,44 @@
+version: "3.8"
+name: nestjs-redis-ii
+
+services:
+  redis:
+    image: redis:latest
+    container_name: redis
+    command: redis-server --requirepass root
+    ports:
+      - "6379:6379"
+    restart: unless-stopped   
+    volumes:
+      - redis:/data
+
+volumes:
+  redis:
+    driver: local
+    
+#services:
+#  redis-master:
+#    image: redis:latest
+#    container_name: redis-master
+#    build: # to build image with docker-compose
+#      context: ./
+#      dockerfile: ./config/swarm/docker/Dockerfile
+#    restart: always
+#    volumes:
+#      - redis_master:/data
+#    ports:
+#      - 6379:6379
+#    command: redis-server --requirepass root
+
+#  redis-slave:
+#    image: redis:latest
+#    container_name: redis-slave
+#    restart: always
+#    volumes:
+#      - redis_slave:/data
+#    ports:
+#      - 6479:6379
+#    command: redis-server --requirepass root --slaveof redis-master 6379
+#volumes:
+#  redis_master:
+#  redis_slave:
